@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>skrub reports</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+        integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+        crossorigin="anonymous">
+    <style>
+     {% include "skrub-online-report.css" %}
+    </style>
+    <link rel="icon" href="../skrub.svg">
+</head>
+
+<body class="color-links">
+    {% include "nav.html" %}
+
+    {% include "small-banner.html" %}
+
+    <main>
+        <p class="narrow-wrapper">
+            Follow one of the links below to see a report computed with
+            <a href="https://skrub-data.org/dev/reference/generated/skrub.TableReport.html#" class="table-report"><code>skrub.TableReport</code></a>
+            for the corresponding dataset.
+        </p>
+        <ul class="examples-index example-dataset-list">
+            {% for report_name in report_names %}
+            <li>
+                <a href="{{ report_name }}.html">{{ report_name.replace('_', ' ').capitalize() }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+
+</html>

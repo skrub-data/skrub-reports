@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>skrub example report</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+        integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+        crossorigin="anonymous">
+    <style>
+     {% include "skrub-online-report.css" %}
+    </style>
+    <link rel="icon" href="../skrub.svg">
+</head>
+
+<body class="color-links">
+    {% include "nav.html" %}
+
+    {% include "small-banner.html" %}
+
+    <main>
+        <div>
+            {{ report | safe }}
+        </div>
+    </main>
+</body>
+
+</html>

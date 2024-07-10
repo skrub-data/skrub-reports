@@ -1,0 +1,14 @@
+<nav>
+    <ul class="nav">
+        {% for name, href in nav_links %}
+        <li>
+            <a
+                href={{ href | relative }}
+                {% if href == current_page %}
+                class="current-page"
+                {% endif %}
+            >{{ name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
