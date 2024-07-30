@@ -388,20 +388,20 @@ label:has(:focus-visible),
 
 /* Title */
 
-h1 {
+h1.banner {
     font-family: monospace;
     margin-bottom: 4rem;
 }
 
-h1>* {
+h1.banner>* {
     display: inline-block;
 }
 
-h1>span {
+h1.banner>span {
     margin-top: 1.2rem;
 }
 
-h1 .table-report {
+h1.banner .table-report {
     color: var(--blue);
     font-size: max(1.5rem, min(4.5rem, 12vw));
     transform: rotate(-5deg);
@@ -410,18 +410,40 @@ h1 .table-report {
     text-decoration: none;
 }
 
-h1 .from {
+h1.banner .from {
     transform: translateY(0rem) rotate(-20deg);
     display: inline-block;
 }
 
-h1 .skrub {
+h1.banner .skrub {
     height: 6rem;
     transform: translateY(1rem);
 }
 
-h1 .import {
+h1.banner .import {
     transform: rotate(10deg);
+}
+
+/* Example report */
+
+.example-report-abstract {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.example-report-abstract .skrub {
+    height: 4rem;
+}
+.example-report-abstract .table-report {
+    color: var(--blue);
+    font-size: 1.5rem;
+    text-underline-offset: 0.4em;
+    text-decoration-thickness: 2px;
+}
+
+.example-report-abstract .table-report:hover {
+    text-decoration-color: var(--orange);
 }
 
 /* Nav */
@@ -475,8 +497,8 @@ nav > ul > li > a {
     text-decoration-color: var(--orange);
 }
 
-.wrapper {
+.examples-index {
     padding-left: 2ch;
     padding-right: 2ch;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
