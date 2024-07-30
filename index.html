@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>skrub reports</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+        integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="skrub-online-report.css?versionebb6">
+    <link rel="icon" href="skrub.svg">
+    <script src="copybutton.js?versionebb6" defer></script>
+    <script src="skrub-online-report.js?versionebb6" defer></script>
+</head>
+
+<body>
+    <nav>
+    <ul class="nav">
+        
+        <li  class="current-page" >
+            <a href="/index.html">Demo</a>
+        </li>
+        
+        <li >
+            <a href="/examples/index.html">Examples</a>
+        </li>
+        
+    </ul>
+</nav>
+    <main class="flow">
+        <h1><span class="from">from</span> <a href="https://skrub-data.org/"><img
+                    class="skrub" src="skrub.svg"></a> <span
+                class="import">import</span> <a
+                href="https://skrub-data.org/dev/reference/generated/skrub.TableReport.html#"
+                class="table-report">TableReport</a></h1>
+        <div class="text-wrapper-wide">
+            <p>
+                This page allows you to try out the
+                <a href="https://skrub-data.org/dev/reference/generated/skrub.TableReport.html#"><code>TableReport</code></a>
+                from the <a href="https://skrub-data.org/">Skrub</a> Python library.
+            </p>
+            <p>
+                Select a Parquet or CSV file to see an overview of its contents
+                and summary statistics. Everything runs locally in your browser,
+                the file is not uploaded anywhere.</p>
+            <div class="highlighted-block warning-block">
+                <h2>This online demo is experimental.</h2>
+                <p>Due to the limitations
+                    inherent to running Python in a web page, we recommend choosing
+                    a small file (<strong>less than 100 MB</strong>).
+                    A <strong>more reliable and performant way</strong> of generating
+                    reports is to
+                    <a href="https://skrub-data.org/dev/install.html#advanced-usage-for-contributors">install</a>
+                    skrub and use a Python script — see an
+                    <a href="https://skrub-data.org/dev/auto_examples/00_quick_start.html#generating-an-interactive-report-for-a-dataframe">example</a>.
+                </p>
+            </div>
+        </div>
+        <div class="flex file-select">
+            <label data-handler="DisableDuringComputation" for="file-input"
+                id="file-input-label" class="button">Choose CSV
+                or Parquet file
+                <input data-handler="FileInput" id="file-input" type="file"
+                    accept=".parquet, .csv, .tsv" autocomplete="off" />
+            </label>
+            <code data-handler="FileNameDisplay"></code>
+        </div>
+        <div class="flex" data-handler="LargeFileWarning" data-hidden="">
+            <div class="highlighted-block warning-block">
+                <div>
+                    The selected file may be too large (<span
+                        data-file-size-display=""></span>)
+                </div>
+                <div class="text-wrapper-wide">
+                    This online demonstrator is running in your browser with
+                    limited memory. We recommend trying it out on small data
+                    files (less than 100 MB), otherwise the report generation
+                    might be slow or fail. For larger files, consider installing
+                    Skrub and generating the report with a Python script.
+                </div>
+            </div>
+        </div>
+        <div data-handler="StatusContainer" data-hidden=""></div>
+        <details data-handler="CsvDialog" data-hidden=""
+            class="flow align-with-highlighted-block">
+            <summary>CSV parsing parameters</summary>
+            <div class="highlighted-block text-wrapper-wide">
+                <p>
+                    Use the settings below to adjust the parameters used to
+                    parse the CSV, if necessary. When the table preview looks
+                    like the parameters are correct, click <strong>"Create
+                        report"</strong>.
+                </p>
+            </div>
+            <div class="flow">
+                <form data-handler="CsvDialogForm">
+                    <fieldset data-handler="DisableDuringComputation" class="flex">
+                        <div>
+                            <label for="delimiter">Delimiter:</label>
+                            <select id="delimiter" name="delimiter" value=",">
+                                <option value="," selected>,</option>
+                                <option value="&#9;">TAB</option>
+                                <option value=" ">SPACE</option>
+                                <option value=";">;</option>
+                                <option value="|">|</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="quote">Quote:</label>
+                            <select id="quote" name="quote">
+                                <option value='"' selected>"</option>
+                                <option value="'">'</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="escape">Escape:</label>
+                            <select id="escape" name="escape">
+                                <option value="none" selected>none</option>
+                                <option value="&#92;">&#92;</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="encoding">Text encoding:</label>
+                            <select id="encoding" name="encoding"></select>
+                        </div>
+                        <button type="button" class="button blue-bg"
+                            data-handler="CsvParamsSubmit">Create report</button>
+                    </fieldset>
+                </form>
+
+                <div data-handler="CsvTextPreview">
+                    <h2>File contents</h2>
+                    <div class="scroll">
+                        <div>
+                            <pre data-csv-text-display=""></pre>
+                        </div>
+                    </div>
+                </div>
+                <div data-handler="CsvTablePreview">
+                    <h2>Table preview</h2>
+                    <div class="scroll">
+                        <div data-csv-table-display=""></div>
+                    </div>
+                </div>
+                <div data-handler="CsvPreviewError"
+                    class="highlighted-block error-block wrapper">
+                    <div>
+                        There was an error processing <span data-file-name=""></span>.
+                        You may need to adjust the encoding or CSV formatting
+                        information above.
+                        The error is shown below.
+                    </div>
+                    <pre data-csv-error-display=""></pre>
+                </div>
+            </div>
+        </details>
+        <div data-handler="PythonSnippets" data-hidden="">
+            <details class="highlighted-block tip-block text-wrapper-wide">
+                <summary>How to generate this report in Python</summary>
+                <div>
+                    <p>
+                        To produce the same report from Python code,
+                        <a href="https://skrub-data.org/dev/install.html#advanced-usage-for-contributors">install</a>
+                        the development version of Skrub and execute:
+                    </p>
+                    <div class="tabs">
+                        <input type="radio" name="library" id="pandas" checked />
+                        <label for="pandas">pandas</label>
+                        <div class="tab-panel">
+                            <div class="copy-paste">
+                                <div class="horizontal-scroll gray-bg">
+                                    <pre data-pandas-snippet-display=""
+                                         id="pandas-snippet-display"
+                                         class="padding"></pre>
+                                </div>
+                                <copy-button class="copybutton" target-id="pandas-snippet-display"></copy-button>
+                            </div>
+                        </div>
+                        <input type="radio" name="library" id="polars" />
+                        <label for="polars">polars</label>
+                        <div class="tab-panel">
+                            <div data-polars-escape-warning="" data-hidden=""
+                                class="highlighted-block warning-block margin-bottom">
+                                <div>
+                                    Polars only supports parsing CSV files that
+                                    respect the <a
+                                        href="https://datatracker.ietf.org/doc/html/rfc4180">rfc4180</a>
+                                    standard. In particular, it does not support
+                                    specifying an "escape" character, which your
+                                    file seems to use. The snippet below is
+                                    therefore likely to fail, in which case you can
+                                    read the file with Pandas then convert to Polars
+                                    with <code>pl.from_pandas</code>.
+                                </div>
+                            </div>
+                            <div class="copy-paste">
+
+                                <div class="horizontal-scroll gray-bg">
+                                    <pre data-polars-snippet-display=""
+                                         id="polars-snippet-display"
+                                         class="padding"></pre>
+                                </div>
+
+                                <copy-button class="copybutton" target-id="polars-snippet-display"></copy-button>
+                            </div>
+                        </div>
+                        <div class="tab-list-border" ></div>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div data-handler="Report" data-hidden=""></div>
+        <div data-handler="ReportError" data-hidden=""
+            class="highlighted-block error-block wrapper">
+            <div>
+                Failed to compute report for <span data-file-name=""></span>.
+                If the input is a CSV file, you may need to adjust the values for the
+                delimiter,
+                quote or escape characters in the menu above.
+                The error message is shown below.
+            </div>
+            <pre data-report-error-display=""></pre>
+        </div>
+    </main>
+</body>
+
+</html>
