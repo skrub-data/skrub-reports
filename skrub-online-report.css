@@ -4,6 +4,7 @@
     --lightblue: #c7eafc;
     --lightblue-1: #B0DDF4;
     --lightblue-2: #9ACAE3;
+    --darkblue: #267FAC;
     /* The skrub logo orange */
     --orange: #F89939;
     --lightorange: #FCD4AC;
@@ -19,15 +20,23 @@
     --frame-color: var(--blue);
     --frame-color-light: var(--lightblue);
     --spinner-color: var(--blue);
+
+    --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, "DejaVu Sans Mono", Liberation Mono, monospace;
+    --fontStack-sansSerif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 body {
     line-height: 1.4;
-    font-family: Redhat, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    font-family: var(--fontStack-sansSerif);
+}
+
+pre, code {
+    font-family: var(--fontStack-monospace);
 }
 
 main {
-    padding: 1.2rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
 }
 
 h1 {
@@ -61,6 +70,14 @@ details>summary {
 }
 
 /* Utilities */
+
+.color-links :link {
+    color: var(--darkblue);
+}
+
+.color-links a:hover {
+    text-decoration-color: var(--orange);
+}
 
 .flow>*+* {
     margin-top: 1rem;
@@ -113,14 +130,6 @@ details>summary {
 
 .wrapper {
     max-width: 100ch;
-}
-
-.text-wrapper-wide {
-    max-width: 100ch;
-}
-
-.text-wrapper {
-    max-width: 70ch;
 }
 
 .padding {
@@ -217,6 +226,7 @@ label:has(:focus-visible),
     border-left: 4px solid var(--frame-color);
     border-radius: 5px;
     overflow: hidden;
+    max-width: 100ch;
 }
 
 .highlighted-block> :first-child {
@@ -389,8 +399,9 @@ label:has(:focus-visible),
 /* Title */
 
 h1.banner {
-    font-family: monospace;
+    font-family: var(--fontStack-monospace);
     margin-bottom: 4rem;
+    margin-top: 2rem;
 }
 
 h1.banner>* {
@@ -403,7 +414,7 @@ h1.banner>span {
 
 h1.banner .table-report {
     color: var(--blue);
-    font-size: max(1.5rem, min(4.5rem, 12vw));
+    font-size: max(1.7rem, min(4.5rem, 12vw));
     transform: rotate(-5deg);
     font-weight: bold;
     margin-top: 1.2rem;
@@ -429,21 +440,20 @@ h1.banner .import {
 .example-report-abstract {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .example-report-abstract .skrub {
     height: 4rem;
 }
-.example-report-abstract .table-report {
-    color: var(--blue);
-    font-size: 1.5rem;
+
+.example-report-abstract a {
     text-underline-offset: 0.4em;
     text-decoration-thickness: 2px;
 }
 
-.example-report-abstract .table-report:hover {
-    text-decoration-color: var(--orange);
+.example-report-abstract :visited {
+    color: var(--darkblue);
 }
 
 /* Nav */
@@ -454,36 +464,30 @@ nav > ul {
     gap: 3ch;
 }
 
-nav > ul > li.current-page {
-    border-bottom: 4px solid var(--blue);
-}
-
-nav > ul > li:has(a:hover) {
-    border-bottom: 4px solid var(--orange);
-}
-
-nav > ul > li.current-page > a {
-    color: var(--blue);
-}
-
-nav > ul > li {
+nav a {
+    display: inline-block;
     box-sizing: border-box;
     border-bottom: 4px solid transparent;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-}
-
-nav > ul > li > a {
     color: black;
     text-decoration: none;
+}
+
+nav .current-page {
+    border-bottom: 4px solid var(--blue);
+}
+
+nav a:hover {
+    border-bottom: 4px solid var(--orange);
 }
 
 /* List of datasets */
 
 .example-dataset-list > li {
-    font-family: monospace;
+    font-family: var(--fontStack-monospace);
     font-size: 1.2rem;
     line-height: 2;
 }
@@ -493,12 +497,20 @@ nav > ul > li > a {
     text-decoration-thickness: 2px;
 }
 
-.example-dataset-list a:hover {
-    text-decoration-color: var(--orange);
-}
-
 .examples-index {
     padding-left: 2ch;
     padding-right: 2ch;
     margin-top: 2rem;
+}
+
+/* Misc */
+
+.report-placeholder {
+    width: 100%;
+    height: 10rem;
+    outline: 2px dashed black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
 }

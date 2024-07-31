@@ -9,7 +9,524 @@
         href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
         integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="../skrub-online-report.css?version681c">
+    <style>
+     :root {
+    /* The skrub logo blue */
+    --blue: #3499CD;
+    --lightblue: #c7eafc;
+    --lightblue-1: #B0DDF4;
+    --lightblue-2: #9ACAE3;
+    --darkblue: #267FAC;
+    /* The skrub logo orange */
+    --orange: #F89939;
+    --lightorange: #FCD4AC;
+    --gray-0: #f3f3f3;
+    --gray-1: #ececec;
+    --gray-2: #dbdbdb;
+    --gray-3: #999999;
+    --gray-4: #555555;
+    --red: #ff5555;
+    --lightred: #ffbbbb;
+    --green: #80E980;
+    --lightgreen: #EAFAEA;
+    --frame-color: var(--blue);
+    --frame-color-light: var(--lightblue);
+    --spinner-color: var(--blue);
+
+    --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, "DejaVu Sans Mono", Liberation Mono, monospace;
+    --fontStack-sansSerif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+body {
+    line-height: 1.4;
+    font-family: var(--fontStack-sansSerif);
+}
+
+pre, code {
+    font-family: var(--fontStack-monospace);
+}
+
+main {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+pre {
+    margin: 0;
+    min-width: min-content;
+}
+
+fieldset {
+    border: none;
+}
+
+select {
+    min-width: 5ch;
+}
+
+details>summary {
+    cursor: pointer;
+}
+
+/* Utilities */
+
+.color-links :link {
+    color: var(--darkblue);
+}
+
+.color-links a:hover {
+    text-decoration-color: var(--orange);
+}
+
+.flow>*+* {
+    margin-top: 1rem;
+}
+
+.margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.blue-bg {
+    --bg-color: var(--lightblue);
+    --bg-color-hover: var(--lightblue-1);
+    --bg-color-active: var(--lightblue-2);
+    background: var(--bg-color);
+}
+
+
+.orange-bg {
+    --bg-color: var(--lightorange);
+    background: var(--bg-color);
+}
+
+.gray-bg {
+    --bg-color: var(--gray-0);
+    background: var(--bg-color);
+    border-radius: 5px;
+}
+
+.horizontal-scroll {
+    overflow-x: auto;
+}
+
+.scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 15rem;
+}
+
+.scroll * {
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wrapper {
+    max-width: 100ch;
+}
+
+.padding {
+    padding: 1rem;
+}
+
+/* Show a button instead of the default file input */
+
+input[type="file"] {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+label:has(:focus-visible),
+:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 2px var(--blue);
+}
+
+.button {
+    border-radius: 5px;
+    background: var(--bg-color, var(--gray-0));
+    display: inline-block;
+    color: var(--fg-color, black);
+    border: 2px solid var(--fg-color, black);
+    padding: .5rem;
+    margin: .2rem;
+    cursor: pointer;
+}
+
+@media(hover: hover) {
+    .button:hover:not([data-disabled]) {
+        background: var(--bg-color-hover, var(--gray-1));
+    }
+
+    .button:active:not([data-disabled]) {
+        background: var(--bg-color-active, var(--gray-2));
+    }
+}
+
+.button[data-disabled] {
+    color: var(--gray-3);
+    background: white;
+    cursor: not-allowed;
+    border: 2px solid var(--gray-3);
+}
+
+/* File selector */
+
+.file-select {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Status messages */
+
+.status-display {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.loader {
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: inline-block;
+    border: 0.4rem solid var(--gray-0);
+    border-top: 0.4rem solid var(--spinner-color);
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Highlighted blocks */
+
+.highlighted-block {
+    border: 1px solid var(--frame-color-light);
+    border-left: 4px solid var(--frame-color);
+    border-radius: 5px;
+    overflow: hidden;
+    max-width: 100ch;
+}
+
+.highlighted-block> :first-child {
+    background: var(--frame-color-light);
+}
+
+.highlighted-block> :first-child:focus-visible {
+    border: 2px solid var(--blue);
+    box-shadow: none;
+}
+
+.highlighted-block>* {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0;
+}
+
+.align-with-highlighted-block {
+    padding-left: calc(1rem + 4px);
+}
+
+.error {
+    background: var(--lightred);
+    padding: .5rem;
+}
+
+
+.warning-block {
+    --frame-color: var(--orange);
+    --frame-color-light: var(--lightorange);
+}
+
+.error-block {
+    --frame-color: var(--red);
+    --frame-color-light: var(--lightred);
+}
+
+.tip-block {
+    --frame-color: var(--green);
+    --frame-color-light: var(--lightgreen);
+}
+
+
+/* Hiding irrelevant sections */
+
+[data-hidden] {
+    display: none;
+    /* opacity: 0.5; */
+}
+
+/* Copy-paste button */
+
+.copy-paste {
+    position: relative;
+}
+
+.copy-paste>.copybutton {
+    display: none;
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.copy-paste>.copybutton[data-just-copied],
+.copy-paste:hover>.copybutton {
+    display: inline-block;
+}
+
+.copy-paste> :first-child {
+    min-height: 3rem;
+}
+
+/* Tabs */
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    row-gap: 0;
+}
+
+.tabs>input {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.tabs>input:focus-visible+label {
+    box-shadow: 0 0 0 2px var(--blue);
+}
+
+.tabs>label {
+    border: 1px solid transparent;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+    background: var(--gray-0);
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: -10px;
+    padding-bottom: calc(10px + 0.25rem);
+    z-index: 1;
+}
+
+.tabs>label:nth-child(2) {
+    margin-left: 0.5rem;
+}
+
+.tabs>label:hover {
+    background: var(--gray-2);
+}
+
+.tabs>input:checked+label {
+    border-color: var(--gray-4);
+    background: white;
+    z-index: 3;
+}
+
+.tab-list-border {
+    min-width: 100%;
+    box-sizing: content-box;
+    height: 0;
+    border: none;
+    border-bottom: 1px solid var(--gray-4);
+    position: relative;
+    z-index: 2;
+}
+
+.tabs>input+label+.tab-panel {
+    display: none;
+}
+
+.tabs>input:checked+label+.tab-panel {
+    display: block;
+}
+
+.tab-panel {
+    padding: 0.5rem;
+    order: 100;
+    box-sizing: border-box;
+    min-width: 100%;
+    position: relative;
+    z-index: 4;
+    background: white;
+}
+
+/* Misc */
+
+.pure-table th,
+.pure-table td {
+    max-width: 30ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#report .error-block {
+    margin-top: 1rem;
+}
+
+/* Title */
+
+h1.banner {
+    font-family: var(--fontStack-monospace);
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+}
+
+h1.banner>* {
+    display: inline-block;
+}
+
+h1.banner>span {
+    margin-top: 1.2rem;
+}
+
+h1.banner .table-report {
+    color: var(--blue);
+    font-size: max(1.7rem, min(4.5rem, 12vw));
+    transform: rotate(-5deg);
+    font-weight: bold;
+    margin-top: 1.2rem;
+    text-decoration: none;
+}
+
+h1.banner .from {
+    transform: translateY(0rem) rotate(-20deg);
+    display: inline-block;
+}
+
+h1.banner .skrub {
+    height: 6rem;
+    transform: translateY(1rem);
+}
+
+h1.banner .import {
+    transform: rotate(10deg);
+}
+
+/* Example report */
+
+.example-report-abstract {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.example-report-abstract .skrub {
+    height: 4rem;
+}
+
+.example-report-abstract a {
+    text-underline-offset: 0.4em;
+    text-decoration-thickness: 2px;
+}
+
+.example-report-abstract :visited {
+    color: var(--darkblue);
+}
+
+/* Nav */
+
+nav > ul {
+    display: flex;
+    list-style-type: none;
+    gap: 3ch;
+}
+
+nav a {
+    display: inline-block;
+    box-sizing: border-box;
+    border-bottom: 4px solid transparent;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    color: black;
+    text-decoration: none;
+}
+
+nav .current-page {
+    border-bottom: 4px solid var(--blue);
+}
+
+nav a:hover {
+    border-bottom: 4px solid var(--orange);
+}
+
+/* List of datasets */
+
+.example-dataset-list > li {
+    font-family: var(--fontStack-monospace);
+    font-size: 1.2rem;
+    line-height: 2;
+}
+
+.example-dataset-list a {
+    text-underline-offset: 0.4em;
+    text-decoration-thickness: 2px;
+}
+
+.examples-index {
+    padding-left: 2ch;
+    padding-right: 2ch;
+    margin-top: 2rem;
+}
+
+/* Misc */
+
+.report-placeholder {
+    width: 100%;
+    height: 10rem;
+    outline: 2px dashed black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+    </style>
     <link rel="icon" href="../skrub.svg">
 </head>
 
@@ -17,19 +534,27 @@
     <nav>
     <ul class="nav">
         
-        <li >
-            <a href="../index.html">Demo</a>
+        <li>
+            <a
+                href=../index.html
+                
+            >Demo</a>
         </li>
         
-        <li  class="current-page" >
-            <a href="../examples/index.html">Examples</a>
+        <li>
+            <a
+                href=../examples/index.html
+                
+                class="current-page"
+                
+            >Examples</a>
         </li>
         
     </ul>
 </nav>
 
     <main class="examples-index">
-        <ul class="example-dataset-list">
+        <ul class="example-dataset-list color-links">
             
             <li>
                 <a href="AMES Housing.html">AMES Housing</a>
@@ -53,6 +578,10 @@
             
             <li>
                 <a href="titanic.html">titanic</a>
+            </li>
+            
+            <li>
+                <a href="iris.html">iris</a>
             </li>
             
         </ul>
