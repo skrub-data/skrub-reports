@@ -145,6 +145,10 @@ details>summary {
     max-width: 100ch;
 }
 
+.narrow-wrapper {
+    max-width: 60ch;
+}
+
 .padding {
     padding: 1rem;
 }
@@ -500,14 +504,8 @@ nav a:hover {
 /* List of datasets */
 
 .example-dataset-list > li {
-    font-family: var(--fontStack-monospace);
     font-size: 1.2rem;
-    line-height: 2.2;
-}
-
-.example-dataset-list a {
-    text-underline-offset: 0.4em;
-    text-decoration-thickness: 2px;
+    margin-bottom: 1rem;
 }
 
 .example-dataset-list li::marker {
@@ -535,7 +533,7 @@ nav a:hover {
     <link rel="icon" href="../skrub.svg">
 </head>
 
-<body>
+<body class="color-links">
     <nav>
     <ul class="nav">
         
@@ -558,42 +556,42 @@ nav a:hover {
     </ul>
 </nav>
 
-    <div class="small-banner flex color-links padding">
+    <div class="small-banner flex padding">
     <a href="https://skrub-data.org/"><img class="skrub" src="../skrub.svg"></a>
     <a href="https://skrub-data.org/dev/reference/generated/skrub.TableReport.html#"
        class="table-report"><code>skrub.TableReport</code></a>
 </div>
 
     <main>
-        <p class="wrapper">
+        <p class="narrow-wrapper">
             Follow one of the links below to see a report computed with
             <a href="https://skrub-data.org/dev/reference/generated/skrub.TableReport.html#" class="table-report"><code>skrub.TableReport</code></a>
             for the corresponding dataset.
         </p>
-        <ul class="examples-index example-dataset-list color-links">
+        <ul class="examples-index example-dataset-list">
             
             <li>
-                <a href="AMES Housing.html">AMES Housing</a>
+                <a href="AMES Housing.html">Ames housing</a>
             </li>
             
             <li>
-                <a href="employee_salaries.html">employee_salaries</a>
+                <a href="employee_salaries.html">Employee salaries</a>
             </li>
             
             <li>
-                <a href="medical_charge.html">medical_charge</a>
+                <a href="medical_charge.html">Medical charge</a>
             </li>
             
             <li>
-                <a href="traffic_violations.html">traffic_violations</a>
+                <a href="traffic_violations.html">Traffic violations</a>
             </li>
             
             <li>
-                <a href="drug_directory.html">drug_directory</a>
+                <a href="drug_directory.html">Drug directory</a>
             </li>
             
             <li>
-                <a href="titanic.html">titanic</a>
+                <a href="titanic.html">Titanic</a>
             </li>
             
         </ul>

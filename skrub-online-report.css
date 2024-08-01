@@ -133,6 +133,10 @@ details>summary {
     max-width: 100ch;
 }
 
+.narrow-wrapper {
+    max-width: 60ch;
+}
+
 .padding {
     padding: 1rem;
 }
@@ -488,14 +492,8 @@ nav a:hover {
 /* List of datasets */
 
 .example-dataset-list > li {
-    font-family: var(--fontStack-monospace);
     font-size: 1.2rem;
-    line-height: 2.2;
-}
-
-.example-dataset-list a {
-    text-underline-offset: 0.4em;
-    text-decoration-thickness: 2px;
+    margin-bottom: 1rem;
 }
 
 .example-dataset-list li::marker {
