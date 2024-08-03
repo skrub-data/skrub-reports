@@ -44,7 +44,7 @@ class App {
             this.handlers.push(new cls(elem, this));
         }
 
-        this.worker = new Worker("skrub-worker.js?__skrub_e2ec__");
+        this.worker = new Worker("skrub-worker.js?__skrub_247d__");
         this.worker.onmessage = (e) => {
             this.receive(e.data);
         };
@@ -162,7 +162,7 @@ App.register(FileNameDisplay);
 class LargeFileWarning extends Handler {
     FILE_SELECTED(data) {
         const mb = Math.floor(data.file.size / 1e6);
-        this.elem.querySelector("[data-file-size-display]").textContent =
+        this.elem.querySelector("[data-role='file-size-display']").textContent =
             `${mb} MB`;
         if (mb >= 100) {
             this.show();
@@ -357,11 +357,11 @@ class CsvTextPreview extends Handler {
     clearUpon = ["FILE_SELECTED", "CSV_PARAMS"];
 
     clear() {
-        this.elem.querySelector("[data-csv-text-display]").innerHTML = "";
+        this.elem.querySelector("[data-role='csv-text-display']").innerHTML = "";
     }
 
     DONE_COMPUTING_CSV_PREVIEW(data) {
-        const displayElem = this.elem.querySelector("[data-csv-text-display]");
+        const displayElem = this.elem.querySelector("[data-role='csv-text-display']");
         if (data.raw === undefined) {
             return;
         }
@@ -377,11 +377,11 @@ class CsvTablePreview extends Handler {
     clearUpon = ["FILE_SELECTED", "CSV_PARAMS"];
 
     clear() {
-        this.elem.querySelector("[data-csv-table-display]").innerHTML = "";
+        this.elem.querySelector("[data-role='csv-table-display']").innerHTML = "";
     }
 
     DONE_COMPUTING_CSV_PREVIEW(data) {
-        const displayElem = this.elem.querySelector("[data-csv-table-display]");
+        const displayElem = this.elem.querySelector("[data-role='csv-table-display']");
         if (data.preview === undefined) {
             return;
         }
@@ -398,17 +398,17 @@ class CsvPreviewError extends Handler {
     clearUpon = ["FILE_SELECTED", "CSV_PARAMS"];
 
     clear() {
-        this.elem.querySelector("[data-file-name]").innerHTML = "";
-        this.elem.querySelector("[data-csv-error-display]").innerHTML = "";
+        this.elem.querySelector("[data-role='file-name-display']").innerHTML = "";
+        this.elem.querySelector("[data-role='csv-error-display']").innerHTML = "";
     }
 
     DONE_COMPUTING_CSV_PREVIEW(data) {
         if (data.error === undefined) {
             return;
         }
-        const fileNameDisplay = this.elem.querySelector("[data-file-name]");
+        const fileNameDisplay = this.elem.querySelector("[data-role='file-name-display']");
         fileNameDisplay.textContent = data.fileInfo.name;
-        this.elem.querySelector("[data-csv-error-display]").textContent = data
+        this.elem.querySelector("[data-role='csv-error-display']").textContent = data
             .error;
         this.show();
     }
@@ -421,9 +421,9 @@ class PythonSnippets extends Handler {
     clearUpon = ["FILE_SELECTED", "CSV_PARAMS", "CSV_COMMIT"];
 
     clear() {
-        this.elem.querySelector("[data-pandas-snippet-display]").innerHTML = "";
-        this.elem.querySelector("[data-polars-snippet-display]").innerHTML = "";
-        this.elem.querySelector("[data-polars-escape-warning]").setAttribute(
+        this.elem.querySelector("[data-role='pandas-snippet-display']").innerHTML = "";
+        this.elem.querySelector("[data-role='polars-snippet-display']").innerHTML = "";
+        this.elem.querySelector("[data-role='polars-escape-warning']").setAttribute(
             "data-hidden", "");
 
     }
@@ -433,15 +433,15 @@ class PythonSnippets extends Handler {
             return;
         }
         if (data.pythonSnippets.polars.warningEscapeChar) {
-            this.elem.querySelector("[data-polars-escape-warning]").removeAttribute(
+            this.elem.querySelector("[data-role='polars-escape-warning']").removeAttribute(
                 "data-hidden");
         } else {
-            this.elem.querySelector("[data-polars-escape-warning]").setAttribute(
+            this.elem.querySelector("[data-role='polars-escape-warning']").setAttribute(
                 "data-hidden", "");
         }
-        this.elem.querySelector("[data-pandas-snippet-display]").textContent = data
+        this.elem.querySelector("[data-role='pandas-snippet-display']").textContent = data
             .pythonSnippets.pandas.text;
-        this.elem.querySelector("[data-polars-snippet-display]").textContent = data
+        this.elem.querySelector("[data-role='polars-snippet-display']").textContent = data
             .pythonSnippets.polars.text;
         this.show();
     }
@@ -469,17 +469,17 @@ class ReportError extends Handler {
     clearUpon = ["FILE_SELECTED", "CSV_PARAMS", "CSV_COMMIT"];
 
     clear() {
-        this.elem.querySelector("[data-file-name]").innerHTML = "";
-        this.elem.querySelector("[data-report-error-display]").innerHTML = "";
+        this.elem.querySelector("[data-role='file-name-display']").innerHTML = "";
+        this.elem.querySelector("[data-role='report-error-display']").innerHTML = "";
     }
 
     DONE_COMPUTING_REPORT(data) {
         if (data.error === undefined) {
             return;
         }
-        const fileNameDisplay = this.elem.querySelector("[data-file-name]");
+        const fileNameDisplay = this.elem.querySelector("[data-role='file-name-display']");
         fileNameDisplay.textContent = data.fileInfo.name;
-        this.elem.querySelector("[data-report-error-display]").textContent = data
+        this.elem.querySelector("[data-role='report-error-display']").textContent = data
             .error;
         this.show();
     }

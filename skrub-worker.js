@@ -13,7 +13,7 @@ async function startPyodide() {
     await self.pyodide.loadPackage("micropip");
     const micropip = self.pyodide.pyimport("micropip");
     await micropip.install(["pandas", "fastparquet", "matplotlib",
-        "skrub-0.3.0-py3-none-any.whl?__skrub_e2ec__",
+        "skrub-0.3.0-py3-none-any.whl?__skrub_247d__",
         "clevercsv-0.8.2-cp312-cp312-pyodide_2024_0_wasm32.whl"
     ]);
     await pyodide.runPython(`
