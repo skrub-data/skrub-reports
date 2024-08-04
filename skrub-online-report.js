@@ -44,7 +44,7 @@ class App {
             this.handlers.push(new cls(elem, this));
         }
 
-        this.worker = new Worker("skrub-worker.js?__skrub_ef40__");
+        this.worker = new Worker("skrub-worker.js?__skrub_2155__");
         this.worker.onmessage = (e) => {
             this.receive(e.data);
         };
@@ -58,7 +58,6 @@ class App {
     }
 
     receive(data) {
-        console.log(data.kind);
         for (let handler of this.handlers) {
             handler.receive(data);
         }
@@ -142,7 +141,6 @@ class FileInput extends Handler {
             return;
         }
         const selectedFile = allSelectedFiles[0];
-        console.log(this);
         this.emit({
             kind: "FILE_SELECTED",
             file: selectedFile,
