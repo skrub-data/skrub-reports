@@ -58,7 +58,6 @@ class App {
     }
 
     receive(data) {
-        console.log(data.kind);
         for (let handler of this.handlers) {
             handler.receive(data);
         }
@@ -142,7 +141,6 @@ class FileInput extends Handler {
             return;
         }
         const selectedFile = allSelectedFiles[0];
-        console.log(this);
         this.emit({
             kind: "FILE_SELECTED",
             file: selectedFile,
