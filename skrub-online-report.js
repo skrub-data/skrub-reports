@@ -44,7 +44,7 @@ class App {
             this.handlers.push(new cls(elem, this));
         }
 
-        this.worker = new Worker("skrub-worker.js?__skrub_2155__");
+        this.worker = new Worker("skrub-worker.js?__skrub_3b8c__");
         this.worker.onmessage = (e) => {
             this.receive(e.data);
         };
