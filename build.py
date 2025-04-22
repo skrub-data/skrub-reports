@@ -86,7 +86,9 @@ def add_report(name, fetcher):
         print(f"making report for {name}")
         pretty_name = name.replace("_", " ").capitalize()
         start = time.time()
-        html = TableReport(df, title=pretty_name).html_snippet()
+        html = TableReport(
+            df, title=pretty_name, max_plot_columns=None, max_association_columns=None
+        ).html_snippet()
         elapsed = time.time() - start
         print(f"{name} took {elapsed:.2f}s")
     report_template = ENV.get_template("example-report.html")
