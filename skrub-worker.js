@@ -1,4 +1,4 @@
-importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js");
+importScripts("https://cdn.jsdelivr.net/pyodide/v0.27.8/full/pyodide.js");
 
 function isParquet(fileName) {
     return fileName.endsWith(".parquet");
@@ -12,8 +12,21 @@ async function startPyodide() {
     self.pyodide = await loadPyodide();
     await self.pyodide.loadPackage("micropip");
     const micropip = self.pyodide.pyimport("micropip");
-    await micropip.install(["pandas", "fastparquet", "matplotlib", "skrub",
-                            "clevercsv-0.8.2-cp312-cp312-pyodide_2024_0_wasm32.whl"]);
+    await micropip.install([
+        "pandas",
+        "fastparquet",
+        "matplotlib",
+        "scikit-learn",
+        "scipy",
+        "requests",
+        "jinja2",
+        "joblib",
+        "cloudpickle",
+        "pydot",
+        "chardet",
+        "skrub",
+        "clevercsv-0.8.5-cp312-cp312-pyodide_2024_0_wasm32.whl",
+    ]);
     await pyodide.runPython(`
 import io
 import os
@@ -25,7 +38,7 @@ os.environ["MPLBACKEND"] = "AGG"
 import pandas as pd
 import clevercsv
 import chardet
-from chardet.universaldetector import UniversalDetector
+from chardet import UniversalDetector
 import skrub
 import js
 
